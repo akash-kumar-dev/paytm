@@ -1,13 +1,15 @@
 "use client";
-import { PrismaClient } from "@repo/db/client";
-const client = new PrismaClient();
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Appbar } from "@repo/ui/appbar";
 
-import { useBalance } from "@repo/store";
+// import { useBalance } from "@repo/store";
 export default function Home() {
-  const balance = useBalance();
+  const session = useSession();
+  // const balance = useBalance();
   return (
     <div>
-      <h1 className="text-2xl">Hii there {balance}</h1>
+     <Appbar onSignin={signIn} onSignout={signOut} user={session.data?.user} />
+      {/* <h1 className="text-2xl">Hii there {balance}</h1> */}
     </div>
   );
 }
